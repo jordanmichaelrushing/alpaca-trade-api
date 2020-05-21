@@ -45,6 +45,12 @@ module Alpaca
           end
         end
 
+        def last_trade(symbol)
+          validate_timeframe(timeframe)
+          response = get_request(data_endpoint, "v1/last/stocks/#{symbol}"
+          LastTrade.new(JSON.parse(response.body))
+        end
+
         def calendar(start_date: Date.today, end_date: (Date.today + 30))
           # FIX, use start_date.strftime('%F')
           params = { "start" => start_date.iso8601, "end" => end_date.iso8601 }
