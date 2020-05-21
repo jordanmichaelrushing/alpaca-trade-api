@@ -8,6 +8,7 @@ module Alpaca
                     :cond1, :cond2, :cond3, :cond4, :timestamp
 
         def initialize(json)
+          p json
           @status =    json['status']
           @symbol =    json['symbol']
           @price =     json['last']['price']

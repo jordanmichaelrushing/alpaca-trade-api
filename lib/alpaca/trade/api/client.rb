@@ -47,7 +47,10 @@ module Alpaca
 
         def last_trade(symbol)
           response = get_request(data_endpoint, "v1/last/stocks/#{symbol}")
-          LastTrade.new(JSON.parse(response.body))
+          json = JSON.parse(response.body)
+          p response.status
+          raise NoSuchSymbol, json['message'] if response.status == 404
+          LastTrade.new(json)
         end
 
         def calendar(start_date: Date.today, end_date: (Date.today + 30))

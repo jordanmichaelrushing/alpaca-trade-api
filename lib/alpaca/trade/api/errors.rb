@@ -10,6 +10,7 @@ module Alpaca
       class InvalidRequest < Error; end
       class MissingParameters < Error; end
       class NoPositionForSymbol < Error; end
+      class NoSuchSymbol < Error; end
       class OrderNotCancelable < Error; end
       class RateLimitedError < Error; end
       class UnauthorizedError < Error; end
