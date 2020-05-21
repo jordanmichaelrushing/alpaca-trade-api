@@ -47,7 +47,7 @@ module Alpaca
 
         def last_trade(symbol)
           validate_timeframe(timeframe)
-          response = get_request(data_endpoint, "v1/last/stocks/#{symbol}"
+          response = get_request(data_endpoint, "v1/last/stocks/#{symbol}")
           LastTrade.new(JSON.parse(response.body))
         end
 
