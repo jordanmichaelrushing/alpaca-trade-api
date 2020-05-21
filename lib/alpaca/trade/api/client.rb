@@ -18,6 +18,7 @@ module Alpaca
           @endpoint = endpoint
           @key_id = key_id
           @key_secret = key_secret
+          self
         end
 
         def account
