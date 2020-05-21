@@ -48,7 +48,6 @@ module Alpaca
         def last_trade(symbol)
           response = get_request(data_endpoint, "v1/last/stocks/#{symbol}")
           json = JSON.parse(response.body)
-          p response.status
           raise NoSuchSymbol, json['message'] if response.status == 404
           LastTrade.new(json)
         end
