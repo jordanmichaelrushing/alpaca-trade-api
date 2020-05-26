@@ -2,6 +2,7 @@
 
 require 'date'
 require 'faraday'
+require 'alpaca/trade/api'
 
 module Alpaca
   module Trade
@@ -27,7 +28,7 @@ module Alpaca
 
         def account_configuration
           response = get_request(endpoint, 'v2/account/configurations')
-          AccountConfigurations.new(JSON.parse(response.body))
+          AccountConfiguration.new(JSON.parse(response.body))
         end
 
         def asset(symbol:)

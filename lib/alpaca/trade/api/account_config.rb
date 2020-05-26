@@ -3,7 +3,7 @@
 module Alpaca
   module Trade
     module Api
-      class AccountConfigurations
+      class AccountConfig
         attr_reader :dtbp_check, :no_shorting, :suspend_trade, :trade_confirm_email
 
         def initialize(json)

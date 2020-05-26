@@ -4,7 +4,7 @@ require 'alpaca/trade/api/version'
 require 'alpaca/trade/api/configuration'
 
 require 'alpaca/trade/api/account'
-require 'alpaca/trade/api/account_configurations'
+require 'alpaca/trade/api/account_config'
 require 'alpaca/trade/api/asset'
 require 'alpaca/trade/api/bar'
 require 'alpaca/trade/api/calendar'
