@@ -10,20 +10,24 @@ module Alpaca
         attr_reader :data_endpoint, :endpoint, :key_id, :key_secret
 
         TIMEFRAMES = ['minute', '1Min', '5Min', '15Min', 'day', '1D']
+        DATA_ENDPOINT = Alpaca::Trade::Api.configuration.data_endpoint
 
         def initialize(endpoint: Alpaca::Trade::Api.configuration.endpoint,
                        key_id: Alpaca::Trade::Api.configuration.key_id,
                        key_secret: Alpaca::Trade::Api.configuration.key_secret)
-          @data_endpoint = Alpaca::Trade::Api.configuration.data_endpoint
           @endpoint = endpoint
           @key_id = key_id
           @key_secret = key_secret
-          self
         end
 
         def account
           response = get_request(endpoint, 'v2/account')
           Account.new(JSON.parse(response.body))
+        end
+
+        def account_configuration
+          response = get_request(endpoint, 'v2/account/configurations')
+          AccountConfigurations.new(JSON.parse(response.body))
         end
 
         def asset(symbol:)
@@ -39,7 +43,7 @@ module Alpaca
 
         def bars(timeframe, symbols, limit: 100)
           validate_timeframe(timeframe)
-          response = get_request(data_endpoint, "v1/bars/#{timeframe}", symbols: symbols.join(','), limit: limit)
+          response = get_request(DATA_ENDPOINT, "v1/bars/#{timeframe}", symbols: symbols.join(','), limit: limit)
           json = JSON.parse(response.body)
           json.keys.each_with_object({}) do |symbol, hash|
             hash[symbol] = json[symbol].map { |bar| Bar.new(bar) }
@@ -47,7 +51,7 @@ module Alpaca
         end
 
         def last_trade(symbol)
-          response = get_request(data_endpoint, "v1/last/stocks/#{symbol}")
+          response = get_request(DATA_ENDPOINT, "v1/last/stocks/#{symbol}")
           json = JSON.parse(response.body)
           raise NoSuchSymbol, json['message'] if response.status == 404
           LastTrade.new(json)
