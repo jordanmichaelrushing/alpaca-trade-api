@@ -26,9 +26,9 @@ module Alpaca
           Account.new(JSON.parse(response.body))
         end
 
-        def account_configuration
+        def account_config
           response = get_request(endpoint, 'v2/account/configurations')
-          AccountConfiguration.new(JSON.parse(response.body))
+          AccountConfig.new(JSON.parse(response.body))
         end
 
         def asset(symbol:)
